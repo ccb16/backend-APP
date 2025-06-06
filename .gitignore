@@ -1,0 +1,34 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Build
+dist/
+build/
+
+# Coverage reports
+coverage/
+
+# Others
+*.local
+*.pid
+*.seed
+*.tgz
