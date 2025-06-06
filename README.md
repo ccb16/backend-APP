@@ -10,14 +10,15 @@ Este es un backend completo para una aplicación de tareas con autenticación y 
 * JWT (JSON Web Tokens) (es un formato de token seguro que se usa para autenticación.)
 * Bcrypt.js (Una librería para encriptar contraseñas antes de guardarlas en la base de datos.)
 * Dotenv (Una librería que te permite cargar variables sensibles desde un archivo .env.)
-* CORS (Middleware que permite o restringe el acceso a la API desde un frontend en otro servidor)).
+* CORS (Middleware que permite o restringe el acceso a la API desde un frontend en otro servidor).
+* Swagger (Para probar las apis del backend de forma organizada).
 
 ## Instalación
 
 1. Clona el repositorio:
 
 ```bash
-git clone https://github.com/tuusuario/backend-app.git
+git clone https://github.com/ccb16/backend-APP.git
 cd backend-app
 ```
 
@@ -41,9 +42,9 @@ JWT_SECRET=tu_clave_secreta
 4. Crea la base de datos y las tablas en MySQL:
 
 ```sql
-CREATE DATABASE tareas_db;
+CREATE DATABASE db_tareas;
 
-USE tareas_db;
+USE db_tareas;
 
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -56,18 +57,18 @@ CREATE TABLE users (
 
 CREATE TABLE tasks (
     tarea_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255),
-    description TEXT,
+    title VARCHAR(100),
+    description VARCHAR(255),
     status ENUM('pendiente', 'en progreso', 'completada') DEFAULT 'pendiente',
     user_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 ```
 
 5. Ejecuta la app:
 
 ```bash
-node server.js
+node app.js
 ```
 
 ## Autenticación
@@ -85,19 +86,6 @@ node server.js
 * **POST** `/api/tasks` → Crear nueva tarea
 * **PUT** `/api/tasks/:id` → Editar tarea (si es suya)
 * **DELETE** `/api/tasks/:id` → Eliminar tarea (si es suya)
-
-### Administrador:
-
-* **GET** `/api/admin/tasks` → Ver todas las tareas
-* **GET** `/api/admin/tasks/:userId` → Ver tareas de un usuario específico
-
-## Valores permitidos en `status`
-
-```json
-"pendiente"
-"en progreso"
-"completada"
-```
 
 ## Info
 
