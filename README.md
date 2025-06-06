@@ -15,7 +15,7 @@ Permite registrar usuarios, iniciar sesión y gestionar tareas con diferentes ni
 * Bcrypt.js (Una librería para encriptar contraseñas antes de guardarlas en la base de datos.)
   (Protege las contraseñas de los usuarios. Si alguien accede a tu base de datos, no podrá ver las contraseñas reales, solo los hashes.)
 * Dotenv (Una librería que te permite cargar variables sensibles (como claves secretas, puertos, contraseñas de la base de datos, etc.) desde un archivo .env.)
-* CORS (Middleware que permite o restringe el acceso a tu API desde otros dominios (por ejemplo, desde un frontend en otro servidor).
+* CORS (Middleware que permite o restringe el acceso a la API desde otros dominios (por ejemplo, desde un frontend en otro servidor).
 * Morgan (Un middleware que registra las solicitudes HTTP en la consola (GET, POST, PUT, DELETE).
 
 ##Estructura del proyecto
