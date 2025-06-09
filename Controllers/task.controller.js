@@ -24,6 +24,29 @@ exports.updateTask = async (req, res) => {
   res.send({ message: 'Tarea actualizada' });
 };
 
+exports.updateEstado = async (req, res) => {
+  const { estado } = req.body;
+  const { tarea_id } = req.params;
+
+  try {
+    // Actualiza solo si la tarea es del usuario o si es admin
+    const [result] = await db.query(
+      req.user.role === 'admin'
+        ? 'UPDATE tareas SET estado = ? WHERE tarea_id = ?'
+        : 'UPDATE tareas SET estado = ? WHERE tarea_id = ? AND user_id = ?',
+      req.user.role === 'admin' ? [estado, tarea_id] : [estado, tarea_id, req.user.id]
+    );
+
+    if (result.affectedRows === 0) {
+      return res.status(404).send({ message: 'Tarea no encontrada o sin permiso' });
+    }
+
+    res.send({ message: 'Estado actualizado correctamente' });
+  } catch (error) {
+    res.status(500).send({ message: 'Error al actualizar el estado' });
+  }
+};
+
 exports.deleteTask = async (req, res) => {
   const { tarea_id } = req.params;
   const [task] = await db.query('SELECT * FROM tareas WHERE tarea_id = ?', [tarea_id]);

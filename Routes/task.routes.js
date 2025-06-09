@@ -76,6 +76,7 @@ router.post('/', verifyToken, task.createTask);
  *                     example: "Repasar el capítulo 1"
  *                   prioridad:
  *                     type: string
+ *                     enum: [alta, media, baja]
  *                     example: "alta"
  *                   estado:
  *                     type: string
@@ -89,6 +90,44 @@ router.post('/', verifyToken, task.createTask);
 router.get('/', verifyToken, task.getTasks);
 
 router.put('/:tarea_id', verifyToken, task.updateTask);
+
+/**
+ * @swagger
+ * /tasks/{id}/estado:
+ *   put:
+ *     summary: Actualiza el estado de una tarea
+ *     tags: [Tareas]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: tarea_id
+ *         required: true
+ *         description: ID de la tarea
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       description: Nuevo estado de la tarea
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               estado:
+ *                 type: string
+ *                 enum: [pendiente, en proceso, completado]
+ *                 example: "completado"
+ *     responses:
+ *       200:
+ *         description: Estado actualizado correctamente
+ *       404:
+ *         description: Tarea no encontrada o sin permiso
+ *       500:
+ *         description: Error al actualizar
+ */
+router.put('/:tarea_id/estado', verifyToken, task.updateEstado);
+
 router.delete('/:tarea_id', verifyToken, task.deleteTask);
 
 module.exports = router;
