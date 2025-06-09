@@ -55,11 +55,12 @@ CREATE TABLE users (
     role ENUM('admin', 'user') DEFAULT 'user'
 );
 
-CREATE TABLE tasks (
+CREATE TABLE tareas (
     tarea_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(100),
-    description VARCHAR(255),
-    status ENUM('pendiente', 'en progreso', 'completada') DEFAULT 'pendiente',
+    titulo VARCHAR(100),
+    descripcion VARCHAR(255),
+    prioridad VARCHAR(10),
+    estado ENUM('pendiente', 'en progreso', 'completada') DEFAULT 'pendiente',
     user_id INT,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
@@ -84,8 +85,8 @@ node app.js
 
 * **GET** `/api/tasks` → Ver sus tareas
 * **POST** `/api/tasks` → Crear nueva tarea
-* **PUT** `/api/tasks/:id` → Editar tarea (si es suya)
-* **DELETE** `/api/tasks/:id` → Eliminar tarea (si es suya)
+* **PUT** `/api/tasks/:tarea_id` → Editar tarea (si es suya)
+* **DELETE** `/api/tasks/:tarea_id` → Eliminar tarea (si es suya)
 
 ## Info
 
