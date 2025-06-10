@@ -33,7 +33,7 @@ npm install
 ```env
 PORT=3000
 DB_HOST=localhost
-DB_USER=root
+DB_USER=tu_usuario
 DB_PASSWORD=tu_password
 DB_NAME=tareas_db
 JWT_SECRET=tu_clave_secreta
