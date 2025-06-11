@@ -35,16 +35,16 @@ PORT=3000
 DB_HOST=localhost
 DB_USER=tu_usuario
 DB_PASSWORD=tu_password
-DB_NAME=tareas_db
+DB_NAME=bd_tareas
 JWT_SECRET=tu_clave_secreta
 ```
 
 4. Crea la base de datos y las tablas en MySQL:
 
 ```sql
-CREATE DATABASE db_tareas;
+CREATE DATABASE bd_tareas;
 
-USE db_tareas;
+USE bd_tareas;
 
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
