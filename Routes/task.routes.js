@@ -49,7 +49,7 @@ router.post('/', verifyToken, task.createTask);
 
 /**
  * @swagger
- * /tasks:
+ * /api/tasks:
  *   get:
  *     summary: Obtener tareas del usuario o todas si es admin
  *     tags: [Tareas]
@@ -93,7 +93,7 @@ router.put('/:tarea_id', verifyToken, task.updateTask);
 
 /**
  * @swagger
- * /tasks/{id}/estado:
+ * /api/tasks/{id}/estado:
  *   put:
  *     summary: Actualiza el estado de una tarea
  *     tags: [Tareas]
