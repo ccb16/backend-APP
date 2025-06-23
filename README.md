@@ -1,6 +1,6 @@
 # Sistema de Gestión de Tareas - Backend
 
-Este es un backend completo para una aplicación de tareas con autenticación y control de acceso por roles (user y admin). Permite registrar usuarios, iniciar sesión y gestionar tareas con diferentes niveles de acceso para administradores y usuarios normales.
+Este es un backend para la aplicación de tareas con autenticación y control de acceso por roles (user y admin). Permite registrar usuario, iniciar sesión, crear tareas, actualizarlas, y eliminarlas. Ademas permite mover las tareas entre 3 columnas (pendiente, en proceso, terminada), en un tablero tipo Kanba.
 
 ## Tecnologías usadas
 
@@ -28,23 +28,23 @@ cd backend-app
 npm install
 ```
 
-3. Configura el archivo `.env`:
+3. Crea y Configura el archivo `.env`:
 
 ```env
-PORT=3000
+PORT=8080
 DB_HOST=localhost
 DB_USER=tu_usuario
 DB_PASSWORD=tu_password
-DB_NAME=bd_tareas
+DB_NAME=db_tareas
 JWT_SECRET=tu_clave_secreta
 ```
 
 4. Crea la base de datos y las tablas en MySQL:
 
 ```sql
-CREATE DATABASE bd_tareas;
+CREATE DATABASE db_tareas;
 
-USE bd_tareas;
+USE db_tareas;
 
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -81,11 +81,10 @@ node app.js
 
 > Todas requieren el header: `Authorization: Bearer <token>`
 
-### Usuario normal:
-
 * **GET** `/api/tasks` → Ver sus tareas
 * **POST** `/api/tasks` → Crear nueva tarea
 * **PUT** `/api/tasks/:tarea_id` → Editar tarea (si es suya)
+* **PUT** `/api/tasks/:tarea_id/estado` → Editar el estado de la tarea (si es suya)
 * **DELETE** `/api/tasks/:tarea_id` → Eliminar tarea (si es suya)
 
 ## Info
