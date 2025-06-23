@@ -14,13 +14,13 @@ exports.getTasks = async (req, res) => {
 
 exports.updateTask = async (req, res) => {
   const { tarea_id } = req.params;
-  const { titulo, descripcion, prioridad, estado } = req.body;
+  const { titulo, descripcion, prioridad } = req.body;
   const [task] = await db.query('SELECT * FROM tareas WHERE tarea_id = ?', [tarea_id]);
   if (!task.length) return res.status(404).send({ message: 'Tarea no encontrada' });
   if (req.user.role !== 'admin' && task[0].user_id !== req.user.id) {
     return res.status(403).send({ message: 'No tienes permiso' });
   }
-  await db.query('UPDATE tareas SET titulo = ?, descripcion = ?, prioridad=?, estado = ? WHERE tarea_id = ?', [titulo, descripcion, prioridad, estado, tarea_id]);
+  await db.query('UPDATE tareas SET titulo = ?, descripcion = ?, prioridad=? WHERE tarea_id = ?', [titulo, descripcion, prioridad, tarea_id]);
   res.send({ message: 'Tarea actualizada' });
 };
 

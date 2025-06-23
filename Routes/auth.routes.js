@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../controllers/auth.controller');
+const auth = require('../Controllers/auth.controller');
 
 /**
  * @swagger
@@ -41,6 +41,8 @@ const auth = require('../controllers/auth.controller');
  *                 message:
  *                   type: string
  *                   example: Usuario registrado
+ *       400:
+ *         description: Nombre de Usuario ya registrado
  */
 router.post('/register', auth.register);
 

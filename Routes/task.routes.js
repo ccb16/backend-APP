@@ -89,11 +89,61 @@ router.post('/', verifyToken, task.createTask);
  */
 router.get('/', verifyToken, task.getTasks);
 
+/**
+ * @swagger
+ * /api/tasks/{tarea_id}:
+ *   put:
+ *     summary: Actualizar una tarea
+ *     tags: [Tareas]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: tarea_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la tarea para actualizar
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               titulo:
+ *                 type: string
+ *                 example: Actualizar proyecto
+ *               descripcion:
+ *                 type: string
+ *                 example: Cambiar el nombre del cliente
+ *               prioridad:
+ *                 type: string
+ *                 enum: [alta, media, baja]
+ *                 example: media
+ *     responses:
+ *       200:
+ *         description: Tarea actualizada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Tarea actualizada
+ *       403:
+ *         description: No autorizado
+ *       404:
+ *         description: Tarea no encontrada
+ *       500:
+ *         description: Error del servidor
+ */
 router.put('/:tarea_id', verifyToken, task.updateTask);
 
 /**
  * @swagger
- * /api/tasks/{id}/estado:
+ * /api/tasks/{tarea_id}/estado:
  *   put:
  *     summary: Actualiza el estado de una tarea
  *     tags: [Tareas]
@@ -128,6 +178,40 @@ router.put('/:tarea_id', verifyToken, task.updateTask);
  */
 router.put('/:tarea_id/estado', verifyToken, task.updateEstado);
 
+/**
+ * @swagger
+ * /api/tasks/{tarea_id}:
+ *   delete:
+ *     summary: Eliminar una tarea
+ *     tags:
+ *       - Tareas
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: tarea_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la tarea a eliminar
+ *     responses:
+ *       200:
+ *         description: Tarea eliminada correctamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Tarea eliminada
+ *       403:
+ *         description: No tienes permiso para eliminar esta tarea
+ *       404:
+ *         description: Tarea no encontrada
+ *       500:
+ *         description: Error del servidor
+ */
 router.delete('/:tarea_id', verifyToken, task.deleteTask);
 
 module.exports = router;
