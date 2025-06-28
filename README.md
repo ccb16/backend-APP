@@ -1,6 +1,7 @@
 # Sistema de Gestión de Tareas - Backend
 
 Este es un backend para la aplicación de tareas con autenticación y control de acceso por roles (user y admin). Permite registrar usuario, iniciar sesión, crear tareas, actualizarlas, y eliminarlas. Ademas permite mover las tareas entre 3 columnas (pendiente, en proceso, terminada), en un tablero tipo Kanba.
+Asimismo, se pueden categorizar las tareas por prioridades (alta, media, baja) y añadir etiquetas para diferenciar las tareas.
 
 ## Tecnologías usadas
 
@@ -64,6 +65,21 @@ CREATE TABLE tareas (
     user_id INT,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+
+CREATE TABLE etiquetas (
+  etiqueta_id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(50) NOT NULL,
+  user_id INT,
+  FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+ 
+CREATE TABLE tarea_etiqueta (
+  tarea_id INT,
+  etiqueta_id INT,
+  PRIMARY KEY (tarea_id, etiqueta_id),
+  FOREIGN KEY (tarea_id) REFERENCES tareas(tarea_id),
+  FOREIGN KEY (etiqueta_id) REFERENCES etiquetas(etiqueta_id)
+);
 ```
 
 5. Ejecuta la app:
@@ -86,6 +102,16 @@ node app.js
 * **PUT** `/api/tasks/:tarea_id` → Editar tarea (si es suya)
 * **PUT** `/api/tasks/:tarea_id/estado` → Editar el estado de la tarea (si es suya)
 * **DELETE** `/api/tasks/:tarea_id` → Eliminar tarea (si es suya)
+
+## Rutas de etiquetas
+
+> Todas requieren el header: `Authorization: Bearer <token>`
+
+* **POST** `/api/tags` → Crear nueva etiqueta
+* **GET** `/api/tags` → Ver etiquetas de usuario
+* **POST** `/api/tags/asignar` → Asigan etiqueta a una tarea
+* **GET** `/api/tags/tarea/:tarea_id` → Obtener todas las etiquetas de una tarea
+* **DELETE** `/api/tags/:etiqueta_id` → Eliminar etiqueta (si es suya)
 
 ## Info
 
