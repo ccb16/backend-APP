@@ -49,11 +49,20 @@ exports.updateEstado = async (req, res) => {
 
 exports.deleteTask = async (req, res) => {
   const { tarea_id } = req.params;
+
   const [task] = await db.query('SELECT * FROM tareas WHERE tarea_id = ?', [tarea_id]);
+
   if (!task.length) return res.status(404).send({ message: 'Tarea no encontrada' });
+
   if (req.user.role !== 'admin' && task[0].user_id !== req.user.id) {
     return res.status(403).send({ message: 'No tienes permiso' });
   }
+
+  // Eliminar relaciones primero
+  await db.query('DELETE FROM tarea_etiqueta WHERE tarea_id = ?', [tarea_id]);
+
+  // Luego eliminar la tarea
   await db.query('DELETE FROM tareas WHERE tarea_id = ?', [tarea_id]);
+
   res.send({ message: 'Tarea eliminada' });
 };

@@ -1,5 +1,5 @@
 const db = require('../config/db');
- 
+
 // Crear nueva etiqueta
 exports.createEtiqueta = async (req, res) => {
     const { nombre } = req.body;
@@ -35,7 +35,7 @@ exports.getTareasEtiquetas = async (req, res) => {
 // Eliminar una etiqueta
 exports.deleteEtiqueta = async (req, res) => {
     const { etiqueta_id } = req.params;
- 
+
     // Verificar que la etiqueta le pertenezca al usuario
     const [rows] = await db.query(
         'SELECT * FROM etiquetas WHERE etiqueta_id = ? AND user_id = ?',
@@ -44,12 +44,12 @@ exports.deleteEtiqueta = async (req, res) => {
     if (rows.length === 0) {
         return res.status(403).send({ message: 'No tienes permiso o no existe' });
     }
- 
+
     // Eliminar relaciones con tareas primero
     await db.query('DELETE FROM tarea_etiqueta WHERE etiqueta_id = ?', [etiqueta_id]);
- 
+
     // Luego eliminar la etiqueta
     await db.query('DELETE FROM etiquetas WHERE etiqueta_id = ?', [etiqueta_id]);
- 
+
     res.send({ message: 'Etiqueta eliminada' });
 };
